@@ -1,0 +1,9 @@
+server:
+  port: 8888
+magic:
+  a: a00
+  b: b00
+  c: c00
+spring:
+  application:
+    name: magicconfig-demo
