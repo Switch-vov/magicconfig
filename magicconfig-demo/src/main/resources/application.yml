@@ -7,3 +7,7 @@ magic:
 spring:
   application:
     name: magicconfig-demo
+logging:
+  level:
+    root: info
+    com.switchvov: debug

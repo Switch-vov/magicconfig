@@ -13,4 +13,5 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix = "magic")
 public class MagicDemoConfig {
     private String a;
+    private String b;
 }

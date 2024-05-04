@@ -6,10 +6,14 @@ POST http://localhost:9129/update?app=app1&env=dev&ns=public
 Content-Type: application/json
 
 {
-  "magic.a": "dev200",
-  "magic.c": "cc200",
-  "magic.d": "dd200"
+  "magic.a": "dev400",
+  "magic.b": "bb400",
+  "magic.c": "cc400",
+  "magic.d": "dd400"
 }
 
 ### version
 GET http://127.0.0.1:9129/version?app=app1&env=dev&ns=public
+
+### demo 8888
+GET http://127.0.0.1:8888/demo
