@@ -21,7 +21,7 @@ import java.util.Arrays;
 @RestController
 @Slf4j
 public class MagicconfigDemoApplication {
-    @Value("${magic.a}")
+    @Value("${magic.a}.${magic.c}")
     private String a;
 
     @Value("${magic.b}")

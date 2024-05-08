@@ -1,5 +1,6 @@
 package com.switchvov.magicconfig.client.config;
 
+import com.switchvov.magicconfig.client.value.SpringValueProcessor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.support.AbstractBeanDefinition;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
@@ -20,16 +21,21 @@ import java.util.Optional;
 public class MagicConfigRegistrar implements ImportBeanDefinitionRegistrar {
     @Override
     public void registerBeanDefinitions(AnnotationMetadata metadata, BeanDefinitionRegistry registry) {
-        log.debug("register PropertySourcesProcessor");
+        registerClass(registry, PropertySourcesProcessor.class);
+        registerClass(registry, SpringValueProcessor.class);
+    }
+
+    private static void registerClass(BeanDefinitionRegistry registry, Class<?> clazz) {
+        log.debug(" ===>[MagicConfig] register class:{}", clazz.getCanonicalName());
         Optional<String> first = Arrays.stream(registry.getBeanDefinitionNames())
-                .filter(x -> PropertySourcesProcessor.class.getName().equals(x))
+                .filter(x -> clazz.getName().equals(x))
                 .findFirst();
         if (first.isPresent()) {
-            log.debug("PropertySourcesProcessor already registered");
+            log.debug(" ===>[MagicConfig] class:{} already registered", clazz.getCanonicalName());
             return;
         }
         AbstractBeanDefinition definition = BeanDefinitionBuilder
-                .genericBeanDefinition(PropertySourcesProcessor.class).getBeanDefinition();
-        registry.registerBeanDefinition(PropertySourcesProcessor.class.getName(), definition);
+                .genericBeanDefinition(clazz).getBeanDefinition();
+        registry.registerBeanDefinition(clazz.getName(), definition);
     }
 }
