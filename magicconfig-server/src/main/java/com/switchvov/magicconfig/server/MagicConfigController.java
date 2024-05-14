@@ -2,6 +2,7 @@ package com.switchvov.magicconfig.server;
 
 import com.switchvov.magicconfig.server.model.Configs;
 import com.switchvov.magicconfig.server.dal.ConfigMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,9 +25,14 @@ public class MagicConfigController {
     private static final Map<String, Long> VERSIONS = new HashMap<>();
 
     private final ConfigMapper mapper;
+    private final DistributedLocks locks;
 
-    public MagicConfigController(ConfigMapper configMapper) {
+    public MagicConfigController(
+            @Autowired ConfigMapper configMapper,
+            @Autowired DistributedLocks locks
+    ) {
         this.mapper = configMapper;
+        this.locks = locks;
     }
 
     @GetMapping("/list")
@@ -66,5 +72,10 @@ public class MagicConfigController {
             @RequestParam("ns") String ns
     ) {
         return VERSIONS.getOrDefault(app + "-" + env + "-" + ns, -1L);
+    }
+
+    @GetMapping("/status")
+    public boolean status() {
+        return locks.getLocked().get();
     }
 }

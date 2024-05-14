@@ -17,3 +17,29 @@ GET http://127.0.0.1:9129/version?app=app1&env=dev&ns=public
 
 ### demo 8888
 GET http://127.0.0.1:8888/demo
+
+### update rpc
+POST http://localhost:9129/update?app=app1&env=dev&ns=public
+Content-Type: application/json
+
+{
+  "magicrpc.provider.metas.dc": "sh",
+  "magicrpc.provider.metas.gray": false,
+  "magicrpc.provider.metas.unit": "S021",
+  "magicrpc.provider.metas.tc": 200,
+  "magicrpc.consumer.retries": 2,
+  "magicrpc.consumer.timeout": 3000,
+  "magicrpc.consumer.grayRatio": 50,
+  "magicrpc.consumer.faultLimit": 100,
+  "magicrpc.consumer.halfOpenInitialDelay": 10000,
+  "magicrpc.consumer.halfOpenDelay": 60000
+}
+
+### get status 9129
+GET http://localhost:9129/status
+
+### get status 9130
+GET http://localhost:9130/status
+
+### get status 9131
+GET http://localhost:9131/status
