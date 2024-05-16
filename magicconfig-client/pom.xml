@@ -16,7 +16,7 @@
         <dependency>
             <groupId>com.switchvov</groupId>
             <artifactId>magicutils</artifactId>
-            <version>0.0.2</version>
+            <version>0.0.3</version>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>

@@ -1,6 +1,7 @@
 package com.switchvov.magicconfig.client.repository;
 
 import com.switchvov.magicconfig.client.config.ConfigMeta;
+import org.springframework.context.ApplicationContext;
 
 import java.util.Map;
 
@@ -15,7 +16,7 @@ public interface MagicRepository {
 
     void addListener(MagicRepositoryChangeListener listener);
 
-    static MagicRepository getDefault(ConfigMeta meta) {
-        return new MagicRepositoryImpl(meta);
+    static MagicRepository getDefault(ApplicationContext context, ConfigMeta meta) {
+        return new MagicRepositoryImpl(context, meta);
     }
 }

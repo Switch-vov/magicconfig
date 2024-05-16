@@ -18,7 +18,7 @@ public interface MagicConfigService extends MagicRepositoryChangeListener {
     String getProperty(String name);
 
     static MagicConfigService getDefault(ApplicationContext context, ConfigMeta meta) {
-        MagicRepository repository = MagicRepository.getDefault(meta);
+        MagicRepository repository = MagicRepository.getDefault(context, meta);
         Map<String, String> config = repository.getConfig();
         MagicConfigService configService = new MagicConfigServiceImpl(context, config);
         repository.addListener(configService);
