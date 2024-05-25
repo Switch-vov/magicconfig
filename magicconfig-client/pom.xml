@@ -4,9 +4,38 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.switchvov</groupId>
     <artifactId>magicconfig-client</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.1</version>
     <name>magicconfig-client</name>
     <description>magicconfig-client</description>
+    <url>https://github.com/switch-vov/magicconfig</url>
+
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <issueManagement>
+        <system>github</system>
+        <url>https://github.com/switch-vov/magicconfig/issues</url>
+    </issueManagement>
+
+    <scm>
+        <connection>scm:git:https://github.com/switch-vov/magicconfig.git</connection>
+        <developerConnection>scm:git:https://github.com/switch-vov/magicconfig.git</developerConnection>
+        <url>https://github.com/switch-vov/magicconfig</url>
+    </scm>
+
+    <developers>
+        <developer>
+            <name>switch</name>
+            <email>switchvov@163.com</email>
+            <url>https://github.com/switch-vov</url>
+        </developer>
+    </developers>
+
     <properties>
         <java.version>17</java.version>
         <maven.compiler.source>17</maven.compiler.source>
@@ -114,4 +143,46 @@
         </plugins>
     </build>
 
+    <profiles>
+        <profile>
+            <id>release</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>1.6</version>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <gpgArguments>
+                                <!--表示密码直接输入，不需要弹出密码框-->
+                                <arg>--pinentry-mode</arg>
+                                <arg>loopback</arg>
+                            </gpgArguments>
+                        </configuration>
+                    </plugin>
+                    <!-- 配置方式：https://central.sonatype.org/publish/publish-portal-maven/#deploymentname -->
+                    <plugin>
+                        <groupId>org.sonatype.central</groupId>
+                        <artifactId>central-publishing-maven-plugin</artifactId>
+                        <version>0.4.0</version>
+                        <extensions>true</extensions>
+                        <configuration>
+                            <publishingServerId>central</publishingServerId>
+                            <tokenAuth>true</tokenAuth>
+                            <autoPublish>true</autoPublish>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>
